@@ -1,0 +1,25 @@
+.listItem {
+    border: 1px solid black;
+    display: block;
+    margin-bottom: 20px;
+}
+
+tr.listItem>td {
+    padding: 0.5em;
+}
+
+tr:hover {
+    background-color: rgb(199, 197, 197);
+}
+
+.flag {
+    width: 100px;
+}
+
+.currencyName{
+    width: 300px;
+}
+
+.exchangeRate{
+    min-width: 100px;
+}

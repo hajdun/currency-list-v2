@@ -1,0 +1,125 @@
+{
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
+    "plugin:@typescript-eslint/recommended" // Uses the recommended rules from @typescript-eslint/eslint-plugin
+  ],
+  "plugins": [
+    "jest",
+    "autofix",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": false,
+    "codeFrame": false
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true,
+    "node": true
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true,
+    "FormData": true,
+    "FileReader": true,
+    "Blob": true,
+    "navigator": true,
+    "cy": true
+  },
+  "rules": {
+    "@typescript-eslint/no-empty-function": 0,
+    "no-use-before-define": 0,
+    "react/prop-types": 0,
+    "react/no-access-state-in-setstate": 0,
+    "import/extensions": 0,
+    "react/static-property-placement": 0,
+    "autofix/no-debugger": "error",
+    "useTabs": 0,
+    "curly": [
+      2,
+      "all"
+    ],
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "import/no-unresolved": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "semi": false,
+        "printWidth": 120,
+        "endOfLine": "auto"
+      }
+    ],
+    "prefer-promise-reject-errors": [
+      "off"
+    ],
+    "react/jsx-one-expression-per-line": [
+      "off"
+    ],
+    "no-return-assign": [
+      "warn"
+    ],
+    "import/no-extraneous-dependencies": [
+      "off"
+    ],
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "warn",
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/label-has-associated-control": 0,
+    "no-duplicate-imports": "error",
+    "no-underscore-dangle": 0,
+    "react/state-in-constructor": 0,
+    "react/destructuring-assignment": 0,
+    "import/prefer-default-export": 0,
+    "react/jsx-props-no-spreading": 0,
+    "no-unused-vars": 1,
+    "no-param-reassign": 0,
+    "import/imports-first": [
+      "warn",
+      "absolute-first"
+    ],
+    "react/self-closing-comp": [
+      "error",
+      {
+        "component": true,
+        "html": false // Because it causes error for <span></span>
+      }
+    ],
+    "import/newline-after-import": "error"
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ]
+}

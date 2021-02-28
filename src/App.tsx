@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './App.css'
+
+import { chainedGetListRequest } from './api/routes'
+import { ComposedCurrency } from './models/ComposedCurrency'
+import PageTitle from './Layout/Header/PageTitle'
+import Header from './Layout/Header/Header'
+import List from './Layout/SearchResult/List'
+
+interface IState {
+  fullCurrenyList: Array<ComposedCurrency>
+  currencyList: Array<ComposedCurrency>
 }
 
-export default App;
+class App extends React.Component<any, IState> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+      fullCurrenyList: [],
+      currencyList: [],
+    }
+  }
+
+  async componentDidMount() {
+    const currencyList = await chainedGetListRequest()
+    this.setState({
+      fullCurrenyList: currencyList,
+      currencyList,
+    })
+  }
+
+  filter = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const filterCondition = event.target.value
+    if (filterCondition) {
+      const filteredCurrencyList = this.state.fullCurrenyList.filter((elem: ComposedCurrency) => {
+        const stringifiedCurrency = JSON.stringify(elem).toLowerCase()
+        return stringifiedCurrency.includes(filterCondition.toLowerCase())
+      })
+      // filter
+      this.setState({
+        currencyList: filteredCurrencyList,
+      })
+    } else {
+      // reset to full list
+      this.setState((prevState) => ({
+        currencyList: prevState.fullCurrenyList,
+      }))
+    }
+  }
+
+  render() {
+    const { currencyList } = this.state
+    return (
+      <>
+        <PageTitle />
+        <Header filter={this.filter} />
+        <div className="listWrapper">
+          <List currencyList={currencyList} />
+        </div>
+      </>
+    )
+  }
+}
+
+export default App
