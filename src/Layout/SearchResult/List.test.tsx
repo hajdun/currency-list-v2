@@ -4,10 +4,6 @@ import { render, screen } from '@testing-library/react'
 import List from './List'
 
 describe('List', () => {
-  beforeAll(() => {
-    console.error = () => {}
-  })
-
   it('Shows without props', () => {
     render(<List />)
     const text = screen.getByText(/search/i)

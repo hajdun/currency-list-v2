@@ -5,10 +5,6 @@ import Flag from './Flag'
 import { ComposedCurrency } from '../../../models/ComposedCurrency'
 
 describe('Flag', () => {
-  beforeAll(() => {
-    console.error = () => {}
-  })
-
   it('Shows without props', () => {
     const { getByAltText } = render(<Flag />)
     getByAltText('Image not found')

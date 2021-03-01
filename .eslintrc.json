@@ -51,16 +51,8 @@
         "code": 120
       }
     ],
-    "import/no-unresolved": "off",
-    "react/jsx-filename-extension": [
-      1,
-      {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
-      }
-    ],
+    "import/no-unresolved": "off",   
+    "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "prettier/prettier": [
       "error",
       {

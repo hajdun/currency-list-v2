@@ -7,7 +7,7 @@ import { ComposedCurrency } from '../../models/ComposedCurrency'
 
 type ListProps = { currencyList: Array<ComposedCurrency> }
 
-const List = ({ currencyList }: ListProps) => (
+const List = ({ currencyList }: ListProps): JSX.Element => (
   <div className="listWrapper">
     <ErrorBoundary>
       <table className="currencyListTable">

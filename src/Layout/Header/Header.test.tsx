@@ -4,10 +4,6 @@ import { render, screen } from '@testing-library/react'
 import Header from './Header'
 
 describe('Header', () => {
-  beforeAll(() => {
-    console.error = () => {}
-  })
-
   it('Shows without props', () => {
     render(<Header />)
     const text = screen.getByText(/Search/i)

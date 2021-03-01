@@ -4,10 +4,6 @@ import { render, screen } from '@testing-library/react'
 import CurrencyName from './CurrencyName'
 
 describe('CurrencyName', () => {
-  beforeAll(() => {
-    console.error = () => {}
-  })
-
   it('Shows without props', () => {
     render(<CurrencyName />)
     const text = screen.getByText(/Missing currency data/i)

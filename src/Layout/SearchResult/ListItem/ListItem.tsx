@@ -11,7 +11,7 @@ import ErrorBoundary from '../../ErrorBoundary/ErrorBoundary'
 
 type ListItemProps = { currencyFull: ComposedCurrency }
 
-const ListItem = ({ currencyFull }: ListItemProps) => (
+const ListItem = ({ currencyFull }: ListItemProps): JSX.Element => (
   <ErrorBoundary>
     <tr className="listItem">
       <td className="flag">

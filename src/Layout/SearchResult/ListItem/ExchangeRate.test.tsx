@@ -4,10 +4,6 @@ import { render, screen } from '@testing-library/react'
 import ExchangeRate from './ExchangeRate'
 
 describe('ExchangeRate', () => {
-  beforeAll(() => {
-    console.error = () => {}
-  })
-
   it('Shows without props', () => {
     render(<ExchangeRate />)
     const text = screen.getByText(/Missing exchange rate/i)

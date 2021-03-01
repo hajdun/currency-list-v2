@@ -1,14 +1,17 @@
 export type Country = {
-  flagCountryName: string // "tk",
-  countryFullName: string //  "Tokelau"
-  currency: string //
+  flagCountryName: string // "af",
+  countryFullName: string // "Afghan afghani"
+  currency: string // "AFN"
 }
 
 type CurrencyName = {
-  code: string
+  code: string // "AFN"
+  name: string // "Afghan afghani"
+  symbol: string // "؋"
 }
+
 export type CountryListItem = {
-  alpha2Code: string //  "tk"
-  currencies: Array<CurrencyName> //
-  name: string // name of country
+  alpha2Code: string // "AF"
+  currencies: Array<CurrencyName>
+  name: string // "Afghanistan"
 }

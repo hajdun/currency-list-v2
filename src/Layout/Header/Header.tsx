@@ -3,8 +3,8 @@ import './Header.css'
 
 type HeaderProps = { filter: (event: React.ChangeEvent<HTMLInputElement>) => void }
 
-const Header = ({ filter }: HeaderProps) => (
-  <header className="header">
+const Header = ({ filter }: HeaderProps): JSX.Element => (
+  <header className="header normalText">
     <div className="fixbar">
       <div id="search">
         <label htmlFor="search">Search </label>

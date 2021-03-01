@@ -6,22 +6,23 @@
 
 tr.listItem > td {
   padding: 0.5em;
+  height: 67px;
 }
 
 tr:hover {
   background-color: rgb(199, 197, 197);
 }
 
+.flag {
+  width: 80px;
+}
+
+.imageWrapper {
+  width: 50px;
+  font-size: 10px;
+}
+
 @media screen and (max-width: 350px) {
-  .flag {
-    width: 80px;
-  }
-
-  .imageWrapper {
-    width: 50px;
-    font-size: 10px;
-  }
-
   .currencyName {
     width: 100px;
   }
@@ -33,15 +34,6 @@ tr:hover {
 }
 
 @media screen and (min-width: 600px) {
-  .flag {
-    width: 80px;
-  }
-
-  .imageWrapper {
-    width: 50px;
-    font-size: 10px;
-  }
-
   .currencyName {
     width: 200px;
   }

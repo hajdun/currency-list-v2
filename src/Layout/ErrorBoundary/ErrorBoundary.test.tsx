@@ -8,10 +8,6 @@ const Throws = () => {
 }
 
 describe('Error Boundary', () => {
-  beforeAll(() => {
-    console.error = () => {}
-  })
-
   it('Shows error when an error is caught', () => {
     render(
       <ErrorBoundary>

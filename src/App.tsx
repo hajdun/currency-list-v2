@@ -15,8 +15,8 @@ interface IState {
   currencyList: Array<ComposedCurrency>
 }
 
-class App extends React.Component<any, IState> {
-  constructor(props: any) {
+class App extends React.Component<unknown, IState> {
+  constructor(props?: unknown) {
     super(props)
     this.state = {
       fullCurrenyList: [],
@@ -24,7 +24,7 @@ class App extends React.Component<any, IState> {
     }
   }
 
-  async componentDidMount() {
+  async componentDidMount(): Promise<void> {
     const currencyList = await chainedGetListRequest()
     this.setState(
       {
@@ -37,7 +37,7 @@ class App extends React.Component<any, IState> {
     )
   }
 
-  performFiltering = (filterCondition: string) => {
+  performFiltering = (filterCondition: string): void => {
     this.setState((prevState) => ({
       currencyList: prevState.fullCurrenyList,
     }))
@@ -54,18 +54,17 @@ class App extends React.Component<any, IState> {
     }
   }
 
-  filterFromSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  filterFromSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const filterCondition = event.target.value
     this.performFiltering(filterCondition)
   }
 
-  filterFromUrlParam = () => {
+  filterFromUrlParam = (): void => {
     const { filterOptions } = this.props.match.params // const { filterOptions } = useParams()
-    console.error('filterFromUrlParam', filterOptions)
     this.performFiltering(filterOptions)
   }
 
-  render() {
+  render(): JSX.Element {
     const { currencyList } = this.state
     return (
       <ErrorBoundary>

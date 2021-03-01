@@ -9,7 +9,7 @@ interface State {
 }
 
 class ErrorBoundary extends React.Component<Props, State> {
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
@@ -17,13 +17,13 @@ class ErrorBoundary extends React.Component<Props, State> {
     }
   }
 
-  componentDidCatch() {
+  componentDidCatch(): void {
     this.setState({
       hasError: true,
     })
   }
 
-  render() {
+  render(): JSX.Element | React.ReactNode {
     const { hasError } = this.state
     const { children } = this.props
     if (hasError) {

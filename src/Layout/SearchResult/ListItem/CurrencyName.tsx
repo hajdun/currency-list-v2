@@ -6,7 +6,7 @@ import { ComposedCurrency } from '../../../models/ComposedCurrency'
 
 type CurrencyNameProps = { currencyFull: ComposedCurrency }
 
-const CurrencyName = ({ currencyFull }: CurrencyNameProps) => {
+const CurrencyName = ({ currencyFull }: CurrencyNameProps): JSX.Element => {
   if (!currencyFull || !currencyFull.currency || !currencyFull.nameI18N) {
     return <span>Missing currency data</span>
   }
@@ -15,7 +15,7 @@ const CurrencyName = ({ currencyFull }: CurrencyNameProps) => {
   const longName = currencyFull.nameI18N
 
   return (
-    <span className="tooltip">
+    <span className="tooltip normalText">
       {shortName}
       {longName && <span className="tooltiptext">{longName}</span>}
     </span>
