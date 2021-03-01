@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { CountryListItem, Country, CountryListItem } from '../models/Country'
 
 import config from '../config'
+import { CountryListItem, Country } from '../models/Country'
 import { ComposedCurrency } from '../models/ComposedCurrency'
 
 /**
@@ -27,7 +27,7 @@ const filteredRatelessCurrenciesArray = (currencyList: Array<ComposedCurrency>):
  * and connect it to currencies. This request is cached in localStorage,
  * so it will be only re-fetched if we delete data.
  */
-export const getCountryCurrency = (): Promise<Array<CountryListItem>> => {
+export const getCountryCurrency = (): Promise<Array<Country>> => {
   const countryCurrency = JSON.parse(localStorage.countryCurrency)
 
   // cache hit

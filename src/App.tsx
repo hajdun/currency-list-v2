@@ -5,6 +5,8 @@ import './App.css'
 
 import { chainedGetListRequest } from './api/routes'
 import { ComposedCurrency } from './models/ComposedCurrency'
+import { RouteComponentProps } from './models/RouterParams'
+
 import PageTitle from './Layout/Header/PageTitle'
 import Header from './Layout/Header/Header'
 import List from './Layout/SearchResult/List'
@@ -15,8 +17,12 @@ interface IState {
   currencyList: Array<ComposedCurrency>
 }
 
-class App extends React.Component<unknown, IState> {
-  constructor(props?: unknown) {
+interface IProps {
+  filterOptions: string
+}
+
+class App extends React.Component<RouteComponentProps<IProps>, IState> {
+  constructor(props: RouteComponentProps<IProps>) {
     super(props)
     this.state = {
       fullCurrenyList: [],
@@ -60,7 +66,7 @@ class App extends React.Component<unknown, IState> {
   }
 
   filterFromUrlParam = (): void => {
-    const { filterOptions } = this.props.match.params // const { filterOptions } = useParams()
+    const { filterOptions } = this.props.match.params
     this.performFiltering(filterOptions)
   }
 
