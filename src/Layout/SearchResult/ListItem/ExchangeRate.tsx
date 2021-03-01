@@ -1,7 +1,5 @@
 import React from 'react'
 
-import './ExchangeRate.css'
-
 import { ComposedCurrency } from '../../../models/ComposedCurrency'
 
 type ExchangeRateProps = { currencyFull: ComposedCurrency }

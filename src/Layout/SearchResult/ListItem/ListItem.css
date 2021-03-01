@@ -1,25 +1,53 @@
 .listItem {
-    border: 1px solid black;
-    display: block;
-    margin-bottom: 20px;
+  border: 1px solid black;
+  display: block;
+  margin-bottom: 20px;
 }
 
-tr.listItem>td {
-    padding: 0.5em;
+tr.listItem > td {
+  padding: 0.5em;
 }
 
 tr:hover {
-    background-color: rgb(199, 197, 197);
+  background-color: rgb(199, 197, 197);
 }
 
-.flag {
+@media screen and (max-width: 350px) {
+  .flag {
+    width: 80px;
+  }
+
+  .imageWrapper {
+    width: 50px;
+    font-size: 10px;
+  }
+
+  .currencyName {
     width: 100px;
-}
+  }
 
-.currencyName{
-    width: 300px;
-}
-
-.exchangeRate{
+  .exchangeRate {
     min-width: 100px;
+    text-align: right;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .flag {
+    width: 80px;
+  }
+
+  .imageWrapper {
+    width: 50px;
+    font-size: 10px;
+  }
+
+  .currencyName {
+    width: 200px;
+  }
+
+  .exchangeRate {
+    min-width: 200px;
+    text-align: right;
+  }
 }

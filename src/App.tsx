@@ -1,4 +1,5 @@
 import React from 'react'
+// import { useParams } from 'react-router-dom'
 
 import './App.css'
 
@@ -7,6 +8,7 @@ import { ComposedCurrency } from './models/ComposedCurrency'
 import PageTitle from './Layout/Header/PageTitle'
 import Header from './Layout/Header/Header'
 import List from './Layout/SearchResult/List'
+import ErrorBoundary from './Layout/ErrorBoundary/ErrorBoundary'
 
 interface IState {
   fullCurrenyList: Array<ComposedCurrency>
@@ -24,14 +26,22 @@ class App extends React.Component<any, IState> {
 
   async componentDidMount() {
     const currencyList = await chainedGetListRequest()
-    this.setState({
-      fullCurrenyList: currencyList,
-      currencyList,
-    })
+    this.setState(
+      {
+        fullCurrenyList: currencyList,
+        currencyList,
+      },
+      () => {
+        this.filterFromUrlParam()
+      }
+    )
   }
 
-  filter = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const filterCondition = event.target.value
+  performFiltering = (filterCondition: string) => {
+    this.setState((prevState) => ({
+      currencyList: prevState.fullCurrenyList,
+    }))
+
     if (filterCondition) {
       const filteredCurrencyList = this.state.fullCurrenyList.filter((elem: ComposedCurrency) => {
         const stringifiedCurrency = JSON.stringify(elem).toLowerCase()
@@ -41,24 +51,28 @@ class App extends React.Component<any, IState> {
       this.setState({
         currencyList: filteredCurrencyList,
       })
-    } else {
-      // reset to full list
-      this.setState((prevState) => ({
-        currencyList: prevState.fullCurrenyList,
-      }))
     }
+  }
+
+  filterFromSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const filterCondition = event.target.value
+    this.performFiltering(filterCondition)
+  }
+
+  filterFromUrlParam = () => {
+    const { filterOptions } = this.props.match.params // const { filterOptions } = useParams()
+    console.error('filterFromUrlParam', filterOptions)
+    this.performFiltering(filterOptions)
   }
 
   render() {
     const { currencyList } = this.state
     return (
-      <>
+      <ErrorBoundary>
         <PageTitle />
-        <Header filter={this.filter} />
-        <div className="listWrapper">
-          <List currencyList={currencyList} />
-        </div>
-      </>
+        <Header filter={this.filterFromSearch} />
+        <List currencyList={currencyList} />
+      </ErrorBoundary>
     )
   }
 }
