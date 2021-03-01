@@ -15,3 +15,11 @@ export type CountryListItem = {
   currencies: Array<CurrencyName>
   name: string // "Afghanistan"
 }
+
+type DataFx = {
+  fx: Array<Country>
+}
+
+export type CountryListResult = {
+  data: DataFx
+}

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import config from '../config'
-import { CountryListItem, Country } from '../models/Country'
+import { Country, CountryListItem, CountryListResult } from '../models/Country'
 import { ComposedCurrency } from '../models/ComposedCurrency'
 
 /**
@@ -27,7 +27,7 @@ const filteredRatelessCurrenciesArray = (currencyList: Array<ComposedCurrency>):
  * and connect it to currencies. This request is cached in localStorage,
  * so it will be only re-fetched if we delete data.
  */
-export const getCountryCurrency = (): Promise<Array<Country>> => {
+const getCountryCurrency = (): Promise<Array<Country>> => {
   const countryCurrency = JSON.parse(localStorage.countryCurrency)
 
   // cache hit
@@ -44,36 +44,46 @@ export const getCountryCurrency = (): Promise<Array<Country>> => {
         countryFullName: name,
       })
     )
+
+    // set cache
     localStorage.setItem('countryCurrency', JSON.stringify(refinedVersion))
+
     return refinedVersion
   })
 }
 
-export const getDecoratedListWithCountryForFlag = (countryCurrency: Array<Country>): Promise<Array<ComposedCurrency>> =>
-  axios.get(config.listFetchUrl).then((result) => {
+/**
+ * A function to map the country list to the original currency list
+ * Connect them by "currency" as this is available in both responses.
+ * @param countryCurrency a list of countries (country name, country ISO code, currencies array)
+ * TODO: one country might have multiple currencies, this is not handled by the app
+ */
+const createDecoratedListWithCountryForFlag = (countryCurrency: Array<Country>): Promise<Array<ComposedCurrency>> =>
+  axios.get(config.listFetchUrl).then((result: CountryListResult) => {
     if (result && result !== undefined) {
       const currencyList = result ? result.data.fx : []
+      const currencyListLength = currencyList.length
+      const composedArray = new Array<ComposedCurrency>(currencyListLength)
 
       for (let i = 0; i < countryCurrency.length; i += 1) {
-        for (let j = 0; j < currencyList.length; j += 1) {
+        for (let j = 0; j < currencyListLength; j += 1) {
           const isCurrencyMatch = countryCurrency[i].currency === currencyList[j].currency
 
           if (isCurrencyMatch) {
-            currencyList[j] = {
+            composedArray.push({
               ...currencyList[j],
               ...countryCurrency[i],
-            }
+            })
           }
         }
       }
-
-      return filteredRatelessCurrenciesArray(currencyList)
+      return filteredRatelessCurrenciesArray(composedArray)
     }
     return []
   })
 
 export async function chainedGetListRequest(): Promise<Array<ComposedCurrency>> {
-  const currencyList = await getCountryCurrency()
-  const fullList = await getDecoratedListWithCountryForFlag(currencyList)
+  const countryCurrencyList = await getCountryCurrency()
+  const fullList = await createDecoratedListWithCountryForFlag(countryCurrencyList)
   return fullList
 }
