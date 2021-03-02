@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  text-align: center;
+  color: black;
+  font-size: 15px;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+.flagImg {
+  border-radius: 15%;
+  border: 1px solid black;
+}

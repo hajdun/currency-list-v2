@@ -23,7 +23,7 @@ const ListItem = ({ currencyFull }: ListItemProps): JSX.Element => (
       <td className="exchangeRate">
         <ExchangeRate currencyFull={currencyFull} />
       </td>
-      <td className="eur">EUR</td>
+      <td className="eur normalText">EUR</td>
     </tr>
   </ErrorBoundary>
 )

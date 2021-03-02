@@ -55,7 +55,7 @@ const getCountryCurrency = (): Promise<Array<Country>> => {
       return refinedVersion
     })
     .catch((error) => {
-      console.log(error)
+      console.error(error)
       return []
     })
 }
