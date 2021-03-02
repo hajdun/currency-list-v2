@@ -2,6 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 
 import List from './List'
+import exampleList from '../../mocks/List.json'
 
 describe('List', () => {
   it('Shows without props', () => {
@@ -19,10 +20,9 @@ describe('List', () => {
   })
 
   it('Shows with good props', () => {
-    const currencyList = []
-    render(<List currencyList={currencyList} />)
+    render(<List currencyList={exampleList} />)
 
-    const search = screen.getByText(/There are no results./i)
-    expect(search).toBeInTheDocument()
+    const val = screen.getByText(/134.6/i)
+    expect(val).toBeInTheDocument()
   })
 })

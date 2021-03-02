@@ -26,9 +26,11 @@ const filteredRatelessCurrenciesArray = (currencyList: Array<ComposedCurrency>):
  * Here I used a 3rd party to be able to fetch data needed for flag image display
  * and connect it to currencies. This request is cached in localStorage,
  * so it will be only re-fetched if we delete data.
+ * Everything is set in a way that list is still shown if this
+ * fetch is not successful, but flags and tooltips will not be shown.
  */
 const getCountryCurrency = (): Promise<Array<Country>> => {
-  const countryCurrency = JSON.parse(localStorage.countryCurrency)
+  const countryCurrency = localStorage.countryCurrency && JSON.parse(localStorage.countryCurrency)
 
   // cache hit
   if (countryCurrency && countryCurrency.length > 0) {
@@ -36,20 +38,26 @@ const getCountryCurrency = (): Promise<Array<Country>> => {
   }
 
   // cache miss
-  return axios.get(config.countryCurrencyUrl).then(({ data: countryCurrencyResult }) => {
-    const refinedVersion = countryCurrencyResult.map(
-      ({ alpha2Code: countryIsoCode, currencies, name }: CountryListItem) => ({
-        flagCountryName: countryIsoCode.toLowerCase(),
-        currency: currencies[0].code,
-        countryFullName: name,
-      })
-    )
+  return axios
+    .get(config.countryCurrencyUrl)
+    .then(({ data: countryCurrencyResult }) => {
+      const refinedVersion = countryCurrencyResult.map(
+        ({ alpha2Code: countryIsoCode, currencies, name }: CountryListItem) => ({
+          flagCountryName: countryIsoCode.toLowerCase(),
+          currency: currencies[0].code,
+          countryFullName: name,
+        })
+      )
 
-    // set cache
-    localStorage.setItem('countryCurrency', JSON.stringify(refinedVersion))
+      // set cache
+      localStorage.setItem('countryCurrency', JSON.stringify(refinedVersion))
 
-    return refinedVersion
-  })
+      return refinedVersion
+    })
+    .catch((error) => {
+      console.log(error)
+      return []
+    })
 }
 
 /**
@@ -63,16 +71,23 @@ const createDecoratedListWithCountryForFlag = (countryCurrency: Array<Country>):
     if (result && result !== undefined) {
       const currencyList = result ? result.data.fx : []
       const currencyListLength = currencyList.length
+      const countryCurrencyListLength = countryCurrency.length
       const composedArray = new Array<ComposedCurrency>(currencyListLength)
 
-      for (let i = 0; i < countryCurrency.length; i += 1) {
-        for (let j = 0; j < currencyListLength; j += 1) {
+      // show list without flags and country names
+      if (!countryCurrency || countryCurrencyListLength === 0) {
+        return currencyList
+      }
+
+      // show list WITH flags and country names
+      for (let j = 0; j < currencyListLength; j += 1) {
+        for (let i = 0; i < countryCurrencyListLength; i += 1) {
           const isCurrencyMatch = countryCurrency[i].currency === currencyList[j].currency
 
           if (isCurrencyMatch) {
             composedArray.push({
-              ...currencyList[j],
               ...countryCurrency[i],
+              ...currencyList[j],
             })
           }
         }

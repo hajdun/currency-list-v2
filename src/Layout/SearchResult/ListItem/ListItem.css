@@ -22,11 +22,11 @@ tr:hover {
   font-size: 10px;
 }
 
-@media screen and (max-width: 350px) {
-  .currencyName {
-    width: 100px;
-  }
+.currencyName {
+  width: 200px;
+}
 
+@media screen and (max-width: 350px) {
   .exchangeRate {
     min-width: 100px;
     text-align: right;
@@ -34,10 +34,6 @@ tr:hover {
 }
 
 @media screen and (min-width: 600px) {
-  .currencyName {
-    width: 200px;
-  }
-
   .exchangeRate {
     min-width: 200px;
     text-align: right;
