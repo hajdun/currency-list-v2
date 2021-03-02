@@ -7,16 +7,20 @@ import { ComposedCurrency } from '../../models/ComposedCurrency'
 
 type ListProps = { currencyList: Array<ComposedCurrency> }
 
-const List = ({ currencyList }: ListProps): JSX.Element => (
+const List = ({ currencyList = [] }: ListProps): JSX.Element => (
   <div className="listWrapper">
     <ErrorBoundary>
-      <table className="currencyListTable">
-        <tbody>
-          {currencyList.map((currency: ComposedCurrency) => (
-            <ListItem key={JSON.stringify(currency)} currencyFull={currency} />
-          ))}
-        </tbody>
-      </table>
+      {currencyList.length > 0 ? (
+        <table className="currencyListTable">
+          <tbody>
+            {currencyList.map((currency: ComposedCurrency) => (
+              <ListItem key={JSON.stringify(currency)} currencyFull={currency} />
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <div>There are no results.</div>
+      )}
     </ErrorBoundary>
   </div>
 )

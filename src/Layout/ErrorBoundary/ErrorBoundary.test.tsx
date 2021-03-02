@@ -12,15 +12,12 @@ describe('Error Boundary', () => {
     render(
       <ErrorBoundary>
         <div>
-          asd
           <Throws />
         </div>
       </ErrorBoundary>
     )
     const baseError = screen.getByText(/Something went wrong/i)
-    const extraMessage = screen.getByText(/Oh no!/i)
     expect(baseError).toBeInTheDocument()
-    expect(extraMessage).toBeInTheDocument()
   })
 
   it('Displays children if no error', () => {

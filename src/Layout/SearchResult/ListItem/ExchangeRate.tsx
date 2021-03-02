@@ -9,7 +9,7 @@ const ExchangeRate = ({ currencyFull }: ExchangeRateProps): JSX.Element => {
   const NUM_OF_DIGITS = 2
 
   if (currencyFull && 'exchangeRate' in currencyFull && currencyFull.exchangeRate) {
-    const baseRate = currencyFull.exchangeRate.middle
+    const baseRate = currencyFull.exchangeRate.middle || rate
     rate = parseFloat(baseRate.toFixed(NUM_OF_DIGITS))
     return <span className="exchangeRate normalText">{rate}</span>
   }

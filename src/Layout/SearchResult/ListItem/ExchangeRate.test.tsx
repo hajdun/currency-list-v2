@@ -3,6 +3,12 @@ import { render, screen } from '@testing-library/react'
 
 import ExchangeRate from './ExchangeRate'
 
+const extraCurrencyProps = {
+  currency: 'NZD',
+  flagCountryName: 'tk',
+  countryFullName: 'Tokelau',
+}
+
 describe('ExchangeRate', () => {
   it('Shows without props', () => {
     render(<ExchangeRate />)
@@ -11,7 +17,12 @@ describe('ExchangeRate', () => {
   })
 
   it('Shows with props', () => {
-    const currency = { exchangeRate: { middle: 23.67 } }
+    const currency = {
+      ...extraCurrencyProps,
+      exchangeRate: {
+        middle: 23.67,
+      },
+    }
     render(<ExchangeRate currencyFull={currency} />)
 
     const exchangeRate = screen.getByText(/23.67/i)
@@ -19,7 +30,10 @@ describe('ExchangeRate', () => {
   })
 
   it('Shows with bad props - missing middle', () => {
-    const currency = { exchangeRate: null }
+    const currency = {
+      ...extraCurrencyProps,
+      exchangeRate: undefined,
+    }
     render(<ExchangeRate currencyFull={currency} />)
 
     const text = screen.getByText(/Missing exchange rate/i)
@@ -27,15 +41,25 @@ describe('ExchangeRate', () => {
   })
 
   it('Shows with bad props - bad middle', () => {
-    const currency = { exchangeRate: { middle: null } }
+    const currency = {
+      ...extraCurrencyProps,
+      exchangeRate: {
+        middle: undefined,
+      },
+    }
     render(<ExchangeRate currencyFull={currency} />)
 
-    const text = screen.getByText(/NaN/i)
+    const text = screen.getByText(/0/i)
     expect(text).toBeInTheDocument()
   })
 
   it('Reduces to 2 decimal digits', () => {
-    const currency = { exchangeRate: { middle: 23.670000567 } }
+    const currency = {
+      ...extraCurrencyProps,
+      exchangeRate: {
+        middle: 23.670000567,
+      },
+    }
     render(<ExchangeRate currencyFull={currency} />)
 
     const exchangeRate = screen.getByText(/23.67/i)

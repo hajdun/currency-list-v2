@@ -6,7 +6,7 @@ import List from './List'
 describe('List', () => {
   it('Shows without props', () => {
     render(<List />)
-    const text = screen.getByText(/search/i)
+    const text = screen.getByText(/There are no results./i)
     expect(text).toBeInTheDocument()
   })
 
@@ -14,7 +14,15 @@ describe('List', () => {
     const currencyList = []
     render(<List currencyList={currencyList} />)
 
-    const search = screen.getByText(/search/i)
+    const search = screen.getByText(/There are no results./i)
+    expect(search).toBeInTheDocument()
+  })
+
+  it('Shows with good props', () => {
+    const currencyList = []
+    render(<List currencyList={currencyList} />)
+
+    const search = screen.getByText(/There are no results./i)
     expect(search).toBeInTheDocument()
   })
 })

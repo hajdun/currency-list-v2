@@ -38,6 +38,7 @@ class App extends React.Component<RouteComponentProps<IProps>, IState> {
         currencyList,
       },
       () => {
+        console.log(this.state.fullCurrenyList)
         this.filterFromUrlParam()
       }
     )
