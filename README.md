@@ -88,3 +88,4 @@ Fixes autofixable lint errors. Lints for typescript errors too.
 - It would be nice to have an API providing country info also, acceptable solution is needed for displaying the countries
 - No logger is configured.
 - No documentation tool added.
+- Commit messages are not associated with issue numbers and are not standardized, so searching root causes of bugs may be harder.
