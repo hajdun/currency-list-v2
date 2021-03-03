@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 
 import List from './List'
-import exampleList from '../../mocks/List.json'
+import exampleList from '../../mocks/ComposedCurrencyList.json'
 
 describe('List', () => {
   it('Shows without props', () => {

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import config from '../config'
-import { Country, CountryListItem, CountryListResult } from '../models/Country'
+import { Country, CountryListItem } from '../models/Country'
 import { Currency, ComposedCurrency, CurrencyListResult } from '../models/ComposedCurrency'
 
 /**
@@ -22,6 +22,10 @@ const shouldRemoveRatelessCurrency = (currency: Currency): boolean => {
 const filteredRatelessCurrenciesArray = (currencyList: Array<Currency>): Array<Currency> =>
   currencyList.filter((currency) => shouldRemoveRatelessCurrency(currency))
 
+const setCache = (cacheItemName: string, cacheItem: string): void => {
+  localStorage.setItem(cacheItemName, JSON.stringify(cacheItem))
+}
+
 /**
  * Here I used a 3rd party to be able to fetch data needed for flag image display
  * and connect it to currencies. This request is cached in localStorage,
@@ -29,12 +33,10 @@ const filteredRatelessCurrenciesArray = (currencyList: Array<Currency>): Array<C
  * Everything is set in a way that list is still shown if this
  * fetch is not successful, but flags and tooltips will not be shown.
  */
-const getCountryCurrency = (): Promise<Array<Country>> => {
-  const countryCurrency = localStorage.countryCurrency && JSON.parse(localStorage.countryCurrency)
-
-  // cache hit
-  if (countryCurrency && countryCurrency.length > 0) {
-    return countryCurrency
+export const getCountryCurrency = (): Promise<Array<Country>> => {
+  const cachedCountryList = localStorage.countryCurrency && JSON.parse(localStorage.countryCurrency)
+  if (cachedCountryList && cachedCountryList.length > 0) {
+    return cachedCountryList
   }
 
   // cache miss
@@ -48,9 +50,8 @@ const getCountryCurrency = (): Promise<Array<Country>> => {
           countryFullName: name,
         })
       )
+      setCache('countryCurrency', refinedVersion)
 
-      // set cache
-      localStorage.setItem('countryCurrency', JSON.stringify(refinedVersion))
       return refinedVersion
     })
     .catch((error) => {

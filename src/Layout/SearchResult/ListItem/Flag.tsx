@@ -1,13 +1,9 @@
-import React, { ImgHTMLAttributes } from 'react'
+import React, { SyntheticEvent } from 'react'
 import './tooltip.css'
 import './Flag.css'
 import { ComposedCurrency } from '../../../models/ComposedCurrency'
 
 type FlagProps = { currencyFull: ComposedCurrency }
-
-interface ImgProps extends ImgHTMLAttributes<any> {
-  fallback: string
-}
 
 interface FlagState {
   error: boolean
@@ -30,7 +26,7 @@ class Flag extends React.Component<FlagProps, FlagState> {
     }
   }
 
-  onError = (event: any) => {
+  onError = (event: SyntheticEvent<HTMLImageElement, Event>): void => {
     const imgFallback = '/flags/imageNotFound.png'
     if (!this.state.error && event.type === 'error') {
       this.setState({

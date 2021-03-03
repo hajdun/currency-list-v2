@@ -1,0 +1,24 @@
+[
+  {
+    "currencies": [
+      {
+        "code": "AFN",
+        "name": "Afghan afghani",
+        "symbol": "؋"
+      }
+    ],
+    "name": "Afghanistan",
+    "alpha2Code": "AF"
+  },
+  {
+    "currencies": [
+      {
+        "code": "EUR",
+        "name": "Euro",
+        "symbol": "€"
+      }
+    ],
+    "name": "Åland Islands",
+    "alpha2Code": "AX"
+  }
+]

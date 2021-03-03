@@ -22,7 +22,7 @@ const currency: ComposedCurrency = {
 describe('Flag', () => {
   it('Shows without props', () => {
     const { getByAltText } = render(<Flag />)
-    getByAltText('Image not found')
+    expect(getByAltText('Image not found')).toBeInTheDocument()
   })
 
   it('Shows with props', () => {

@@ -1,0 +1,79 @@
+{
+  "data": {
+    "institute": 198,
+    "lastUpdated": "2018-11-09T15:07:00Z",
+    "comparisonDate": "2018-11-09T12:45:00Z",
+    "baseCurrency": "EUR",
+    "fx": [
+      {
+        "currency": "FJD",
+        "precision": 2,
+        "nameI18N": "Fiji Dollar",
+        "exchangeRate": {
+          "buy": 2,
+          "middle": 2.25,
+          "sell": 2.5,
+          "indicator": 0,
+          "lastModified": "2012-02-14T23:00:00Z"
+        },
+        "banknoteRate": {
+          "buy": 2.2,
+          "middle": 2.4,
+          "sell": 2.6,
+          "indicator": 0,
+          "lastModified": "2018-11-06T23:00:00Z"
+        },
+        "flags": ["provided"]
+      },
+      {
+        "currency": "MXN",
+        "precision": 2,
+        "nameI18N": "Mexican Peso",
+        "exchangeRate": {
+          "buy": 22.38,
+          "middle": 22.98,
+          "sell": 23.58,
+          "indicator": 0,
+          "lastModified": "2018-11-08T23:00:00Z"
+        },
+        "banknoteRate": {
+          "buy": 21.1,
+          "middle": 22.6,
+          "sell": 24.1,
+          "indicator": 0,
+          "lastModified": "2018-11-06T23:00:00Z"
+        },
+        "flags": ["provided"]
+      }
+    ]
+  },
+  "status": 200,
+  "statusText": "OK",
+  "headers": {
+    "access-control-allow-credentials": "true",
+    "access-control-allow-methods": "GET",
+    "access-control-allow-origin": "http://localhost:3000",
+    "access-control-expose-headers": "*",
+    "access-control-max-age": "86400",
+    "content-length": "38920",
+    "content-type": "application/json; charset=UTF-8",
+    "date": "Wed, 03 Mar 2021 19:46:11 GMT",
+    "sozu-id": "36f361a8-dff9-4eaa-aaf6-bfab32914f1a",
+    "vary": "Origin,Access-Control-Request-Method"
+  },
+  "config": {
+    "url": "https://run.mocky.io/v3/c88db14a-3128-4fbd-af74-1371c5bb0343",
+    "method": "get",
+    "headers": {
+      "Accept": "application/json, text/plain, */*"
+    },
+    "transformRequest": [null],
+    "transformResponse": [null],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1
+  },
+  "request": {}
+}

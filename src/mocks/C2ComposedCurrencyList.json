@@ -1,0 +1,40 @@
+[
+  {
+    "flagCountryName": "af",
+    "currency": "AFN",
+    "countryFullName": "Afghanistan",
+    "precision": 2,
+    "nameI18N": "Afghan Afghani",
+    "exchangeRate": {
+      "buy": 78.6653,
+      "middle": 86.1653,
+      "sell": 93.6653,
+      "indicator": 0,
+      "lastModified": "2018-11-08T23:00:00Z"
+    },
+    "flags": ["provided"]
+  },
+  {
+    "flagCountryName": "ax",
+    "currency": "EUR",
+    "countryFullName": "Åland Islands",
+    "precision": 2,
+    "nameI18N": "Euro",
+    "denominations": [500, 200, 100, 50, 20, 10, 5],
+    "exchangeRate": {
+      "buy": 1,
+      "middle": 1,
+      "sell": 1,
+      "indicator": 0,
+      "lastModified": "2001-12-31T23:00:00Z"
+    },
+    "banknoteRate": {
+      "buy": 1,
+      "middle": 1,
+      "sell": 1,
+      "indicator": 0,
+      "lastModified": "2008-08-06T22:00:00Z"
+    },
+    "flags": ["provided", "tradingProhibited"]
+  }
+]

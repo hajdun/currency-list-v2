@@ -2,7 +2,7 @@
 
 context("Search from input", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000").wait(2000);
+    cy.visit("http://localhost:5000").wait(2000);
   });
 
   it(".type() - type into search Mexico (one result)", () => {
