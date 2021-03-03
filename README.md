@@ -1,18 +1,18 @@
-# Simple Currency lister application
+# Simple currency lister application
 
 The app lists currencies. You can filter for currencies in 2 ways.\
 
-- Filter from search box (filtering happens on typing) \
-- Filter from url (filtering happens on page load) \
+- Filter from search box (filtering happens on typing)
+- Filter from url (filtering happens on page load)
 
 Extras: \
 
-- Added country list from a 3rd party providing all info needed for the flag (response cached) \
-- Broken images are replaced with a replacement image and the proper alt text \
-- On flag hover, country name is displayed \
-- On currency hover, currency name is displayed \
-- Extras are included in the filter (So it is possible to filter for 'Peso' or 'Mexico') \
-- List can be displayed without the country list \
+- Added country list from a 3rd party providing all info needed for the flag (response cached)
+- Broken images are replaced with a replacement image and the proper alt text
+- On flag hover, country name is displayed
+- On currency hover, currency name is displayed
+- Extras are included in the filter (So it is possible to filter for 'Peso' or 'Mexico')
+- List can be displayed without the country list
 
 ## Configuration
 
@@ -22,7 +22,7 @@ src/config.js
 
 Contains the application urls for fetching the country and the currency list.
 
-# Getting Started with Create React App
+# Made with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -77,12 +77,14 @@ Fixes autofixable lint errors. Lints for typescript errors too.
 
 # Known issues
 
-- Scroll has a bug because of the poor setup with setTimeout \
-- Page is slow \
-- Test coverage needs to be improved \
-- Currency list should be refreshed every X times to keep it up-to-date \
-- Not all info fetched is available to the user, design needed for providing more details \
-- Prohibited currencies not filtered \
-- Must check if the correct value was used as a display value \
-- It would be nice to have an API providing country info also, acceptable solution is needed for displaying the countries \
+- Scroll has a bug because of the poor setup with setTimeout
+- Page is slow (a webpack build setup and better serving options would have helped a bit)
+- Images are not optimized
+- Test coverage needs to be improved
+- Currency list should be refreshed every X times to keep it up-to-date
+- Not all info fetched is available to the user, design needed for providing more details
+- Prohibited currencies not filtered
+- Must check if the correct value was used as a display value
+- It would be nice to have an API providing country info also, acceptable solution is needed for displaying the countries
 - No logger is configured.
+- No documentation tool added.
