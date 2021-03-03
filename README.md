@@ -1,11 +1,11 @@
 # Simple currency lister application
 
-The app lists currencies. You can filter for currencies in 2 ways.\
+The app lists currencies. You can filter for currencies in 2 ways.
 
 - Filter from search box (filtering happens on typing)
 - Filter from url (filtering happens on page load)
 
-Extras: \
+Extras:
 
 - Added country list from a 3rd party providing all info needed for the flag (response cached)
 - Broken images are replaced with a replacement image and the proper alt text
@@ -84,7 +84,7 @@ Fixes autofixable lint errors. Lints for typescript errors too.
 - Currency list should be refreshed every X times to keep it up-to-date
 - Not all info fetched is available to the user, design needed for providing more details
 - Prohibited currencies not filtered
-- Must check if the correct value was used as a display value
+- Must check if the correct EUR value was used as a display value (currently it is exchangeRate.middle)
 - It would be nice to have an API providing country info also, acceptable solution is needed for displaying the countries
 - No logger is configured.
 - No documentation tool added.
