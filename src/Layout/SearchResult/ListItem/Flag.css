@@ -1,11 +1,11 @@
-.container {
+.flagImgContainer {
   position: relative;
   text-align: center;
   color: black;
   font-size: 15px;
 }
 
-.centered {
+.flagImgMissing {
   position: absolute;
   top: 50%;
   left: 60%;

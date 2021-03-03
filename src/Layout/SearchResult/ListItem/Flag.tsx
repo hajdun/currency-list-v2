@@ -19,7 +19,6 @@ interface FlagState {
 class Flag extends React.Component<FlagProps, FlagState> {
   constructor(props: FlagProps) {
     super(props)
-
     const { flagCountryName = undefined, countryFullName = undefined } = this.props.currencyFull || {}
     const imageName = flagCountryName && `/flags/${flagCountryName}.png`
 
@@ -32,10 +31,8 @@ class Flag extends React.Component<FlagProps, FlagState> {
   }
 
   onError = (event: any) => {
-    console.log(typeof event)
     const imgFallback = '/flags/imageNotFound.png'
     if (!this.state.error && event.type === 'error') {
-      console.log('should set imgFallback')
       this.setState({
         error: true,
         imgSrc: imgFallback,
@@ -47,8 +44,9 @@ class Flag extends React.Component<FlagProps, FlagState> {
     const { imgSrc, flagCountryName, countryFullName, error } = this.state
 
     return (
-      <span className="tooltip imageWrapper container">
+      <span className="tooltip imageWrapper flagImgContainer">
         <img
+          data-testid="flagimg"
           className="flagImg"
           src={imgSrc}
           alt={flagCountryName || 'Image not found'}
@@ -56,7 +54,11 @@ class Flag extends React.Component<FlagProps, FlagState> {
           height="40px"
           onError={(event) => this.onError(event)}
         />
-        {error && <div className="centered">{flagCountryName}</div>}
+        {error && (
+          <div data-testid="flagimgmissing" className="flagImgMissing">
+            {flagCountryName}
+          </div>
+        )}
         {countryFullName && (
           <div data-testid="flagtooltip" className="tooltiptext normalText">
             {countryFullName}

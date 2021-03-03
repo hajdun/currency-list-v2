@@ -2,13 +2,13 @@ import axios from 'axios'
 
 import config from '../config'
 import { Country, CountryListItem, CountryListResult } from '../models/Country'
-import { ComposedCurrency } from '../models/ComposedCurrency'
+import { Currency, ComposedCurrency, CurrencyListResult } from '../models/ComposedCurrency'
 
 /**
  * A helper to clean up currencies which have no EUR exchange rates.
  * @param {*} currency to check for exchange rate
  */
-const shouldRemoveRatelessCurrency = (currency: ComposedCurrency): boolean => {
+const shouldRemoveRatelessCurrency = (currency: Currency): boolean => {
   if (currency && 'exchangeRate' in currency && 'currency' in currency && currency.currency) {
     return true
   }
@@ -19,7 +19,7 @@ const shouldRemoveRatelessCurrency = (currency: ComposedCurrency): boolean => {
  *  Clean up currency array, remove items with no exchange rate
  * @param {*} currencyList currency array to clean
  */
-const filteredRatelessCurrenciesArray = (currencyList: Array<ComposedCurrency>): Array<ComposedCurrency> =>
+const filteredRatelessCurrenciesArray = (currencyList: Array<Currency>): Array<Currency> =>
   currencyList.filter((currency) => shouldRemoveRatelessCurrency(currency))
 
 /**
@@ -51,7 +51,6 @@ const getCountryCurrency = (): Promise<Array<Country>> => {
 
       // set cache
       localStorage.setItem('countryCurrency', JSON.stringify(refinedVersion))
-
       return refinedVersion
     })
     .catch((error) => {
@@ -60,45 +59,54 @@ const getCountryCurrency = (): Promise<Array<Country>> => {
     })
 }
 
-/**
- * A function to map the country list to the original currency list
- * Connect them by "currency" as this is available in both responses.
- * @param countryCurrency a list of countries (country name, country ISO code, currencies array)
- * TODO: one country might have multiple currencies, this is not handled by the app
- */
-const createDecoratedListWithCountryForFlag = (countryCurrency: Array<Country>): Promise<Array<ComposedCurrency>> =>
-  axios.get(config.listFetchUrl).then((result: CountryListResult) => {
-    if (result && result !== undefined) {
+export const fetchCurrencyList = (): Promise<Array<Currency>> =>
+  axios.get(config.listFetchUrl).then((result: CurrencyListResult) => {
+    if (result && result !== undefined && result.data) {
       const currencyList = result ? result.data.fx : []
-      const currencyListLength = currencyList.length
-      const countryCurrencyListLength = countryCurrency.length
-      const composedArray = new Array<ComposedCurrency>(currencyListLength)
-
-      // show list without flags and country names
-      if (!countryCurrency || countryCurrencyListLength === 0) {
-        return currencyList
-      }
-
-      // show list WITH flags and country names
-      for (let j = 0; j < currencyListLength; j += 1) {
-        for (let i = 0; i < countryCurrencyListLength; i += 1) {
-          const isCurrencyMatch = countryCurrency[i].currency === currencyList[j].currency
-
-          if (isCurrencyMatch) {
-            composedArray.push({
-              ...countryCurrency[i],
-              ...currencyList[j],
-            })
-          }
-        }
-      }
-      return filteredRatelessCurrenciesArray(composedArray)
+      return filteredRatelessCurrenciesArray(currencyList)
     }
     return []
   })
 
-export async function chainedGetListRequest(): Promise<Array<ComposedCurrency>> {
+/**
+ * A function to map the country list to the original currency list
+ * Connect them by "currency" as this is available in both responses.
+ * @param countryCurrency a list of countries (country name, country ISO code, currencies array)
+ * @param currencyList is the currency list received (the mock link)
+ * TODO: one country might have multiple currencies, this is not handled by the app
+ */
+export const createDecoratedListWithCountryForFlag = (
+  countryCurrency: Array<Country>,
+  currencyList: Array<Currency>
+): Array<ComposedCurrency> | Array<Currency> => {
+  const currencyListLength = currencyList.length
+  const countryCurrencyListLength = countryCurrency.length
+  const composedArray = new Array<ComposedCurrency>(currencyListLength)
+
+  // show list without flags and country names
+  if (!countryCurrency || countryCurrencyListLength === 0) {
+    return currencyList
+  }
+
+  // show list WITH flags and country names
+  for (let j = 0; j < currencyListLength; j += 1) {
+    for (let i = 0; i < countryCurrencyListLength; i += 1) {
+      const isCurrencyMatch = countryCurrency[i].currency === currencyList[j].currency
+
+      if (isCurrencyMatch) {
+        composedArray.push({
+          ...countryCurrency[i],
+          ...currencyList[j],
+        })
+      }
+    }
+  }
+  return composedArray
+}
+
+export async function chainedGetListRequest(): Promise<Array<ComposedCurrency> | Array<Currency>> {
   const countryCurrencyList = await getCountryCurrency()
-  const fullList = await createDecoratedListWithCountryForFlag(countryCurrencyList)
-  return fullList
+  const currencyList = await fetchCurrencyList()
+  const combineLists = createDecoratedListWithCountryForFlag(countryCurrencyList, currencyList)
+  return combineLists
 }

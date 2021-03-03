@@ -35,7 +35,7 @@ class PageTitle extends React.Component<unknown, IState> {
     const shouldDisplayAs = this.state.isScrolling ? 'none' : 'block'
     return (
       <div style={{ height: 60, display: shouldDisplayAs }}>
-        <div className="pageTitle pageTitleCover normalText">George FE test</div>
+        <div className="pageTitle normalText">George FE test</div>
       </div>
     )
   }

@@ -1,10 +1,9 @@
 import React from 'react'
-// import { useParams } from 'react-router-dom'
 
 import './App.css'
 
 import { chainedGetListRequest } from './api/routes'
-import { ComposedCurrency } from './models/ComposedCurrency'
+import { Currency, ComposedCurrency } from './models/ComposedCurrency'
 import { RouteComponentProps } from './models/RouterParams'
 
 import PageTitle from './Layout/Header/PageTitle'
@@ -13,8 +12,8 @@ import List from './Layout/SearchResult/List'
 import ErrorBoundary from './Layout/ErrorBoundary/ErrorBoundary'
 
 interface IState {
-  fullCurrenyList: Array<ComposedCurrency>
-  currencyList: Array<ComposedCurrency>
+  fullCurrenyList: Array<ComposedCurrency> | Array<Currency>
+  currencyList: Array<ComposedCurrency> | Array<Currency>
 }
 
 interface IProps {
@@ -49,7 +48,7 @@ class App extends React.Component<RouteComponentProps<IProps>, IState> {
     }))
 
     if (filterCondition) {
-      const filteredCurrencyList = this.state.fullCurrenyList.filter((elem: ComposedCurrency) => {
+      const filteredCurrencyList = this.state.fullCurrenyList.filter((elem: ComposedCurrency | Currency) => {
         const stringifiedCurrency = JSON.stringify(elem).toLowerCase()
         return stringifiedCurrency.includes(filterCondition.toLowerCase())
       })
@@ -75,7 +74,7 @@ class App extends React.Component<RouteComponentProps<IProps>, IState> {
     return (
       <ErrorBoundary>
         <PageTitle />
-        <Header filter={this.filterFromSearch} />
+        <Header customFilter={this.filterFromSearch} />
         <List currencyList={currencyList} />
       </ErrorBoundary>
     )
