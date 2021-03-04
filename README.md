@@ -89,3 +89,5 @@ Fixes autofixable lint errors. Lints for typescript errors too.
 - No logger is configured.
 - No documentation tool added.
 - Commit messages are not associated with issue numbers and are not standardized, so searching root causes of bugs may be harder.
+- Search input is not debounced, so filtering happens instantly
+- As there is no submit button, I could not figure out if I should send up the filter value to the url first (also debouncing)
