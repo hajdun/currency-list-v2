@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@n8tb1t/use-scroll-position": "^2.0.3",
     "axios": "^0.21.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -39,7 +40,7 @@
     "typescript": "^4.1.2"
   },
   "scripts": {
-    "start": "eslint src/**/*.ts{,x} --fix && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build && gzipper compress ./build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

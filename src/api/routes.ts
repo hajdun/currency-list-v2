@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import config from '../config'
+import config from '../config.json'
 import { Country, CountryListItem } from '../models/Country'
 import { Currency, ComposedCurrency, CurrencyListResult } from '../models/ComposedCurrency'
 
@@ -8,7 +8,7 @@ import { Currency, ComposedCurrency, CurrencyListResult } from '../models/Compos
  * A helper to clean up currencies which have no EUR exchange rates.
  * @param {*} currency to check for exchange rate
  */
-const shouldRemoveRatelessCurrency = (currency: Currency): boolean => {
+export const shouldRemoveRatelessCurrency = (currency: Currency): boolean => {
   if (currency && 'exchangeRate' in currency && 'currency' in currency && currency.currency) {
     return true
   }
@@ -31,9 +31,9 @@ const setCache = (cacheItemName: string, cacheItem: string): void => {
  * and connect it to currencies. This request is cached in localStorage,
  * so it will be only re-fetched if we delete data.
  * Everything is set in a way that list is still shown if this
- * fetch is not successful, but flags and tooltips will not be shown.
+ * fetch is not successful, but flags and tooltips will not be shown in that case.
  */
-export const getCountryCurrency = (): Promise<Array<Country>> => {
+export const fetchCountryCurrencyList = (): Promise<Array<Country>> => {
   const cachedCountryList = localStorage.countryCurrency && JSON.parse(localStorage.countryCurrency)
   if (cachedCountryList && cachedCountryList.length > 0) {
     return cachedCountryList
@@ -106,7 +106,7 @@ export const createDecoratedListWithCountryForFlag = (
 }
 
 export async function chainedGetListRequest(): Promise<Array<ComposedCurrency> | Array<Currency>> {
-  const countryCurrencyList = await getCountryCurrency()
+  const countryCurrencyList = await fetchCountryCurrencyList()
   const currencyList = await fetchCurrencyList()
   const combineLists = createDecoratedListWithCountryForFlag(countryCurrencyList, currencyList)
   return combineLists

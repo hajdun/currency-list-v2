@@ -10,6 +10,7 @@ import PageTitle from './Layout/Header/PageTitle'
 import Header from './Layout/Header/Header'
 import List from './Layout/SearchResult/List'
 import ErrorBoundary from './Layout/ErrorBoundary/ErrorBoundary'
+import { filterForCurrency } from './SearchUtils/searchUtils'
 
 interface IState {
   fullCurrenyList: Array<ComposedCurrency> | Array<Currency>
@@ -48,10 +49,8 @@ class App extends React.Component<RouteComponentProps<IProps>, IState> {
     }))
 
     if (filterCondition) {
-      const filteredCurrencyList = this.state.fullCurrenyList.filter((elem: ComposedCurrency | Currency) => {
-        const stringifiedCurrency = JSON.stringify(elem).toLowerCase()
-        return stringifiedCurrency.includes(filterCondition.toLowerCase())
-      })
+      const filteredCurrencyList = filterForCurrency(filterCondition, this.state.fullCurrenyList)
+
       // filter
       this.setState({
         currencyList: filteredCurrencyList,
